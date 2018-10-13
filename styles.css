@@ -1,0 +1,13 @@
+th{
+    border:1px solid black;
+    padding: 20px;
+    background-color: white;
+}
+table {
+    background-color: grey; 
+}
+.row {
+        margin: auto ;
+        max-width: 300px;
+        
+}
