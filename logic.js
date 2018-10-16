@@ -1,6 +1,6 @@
 //diamond co-ordinates for testing 
 let diamondIndex = [
-    [0, 1], [1, 0], [5, 2], [2, 1], [5, 5]
+    [0, 1], [1, 0], [5, 2], [2, 1], [5, 5] ,[7,7] , [1,6] , [4,7]
 ]
 let attempts = 0;
 $(document).ready(function () {
