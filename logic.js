@@ -3,6 +3,7 @@ let diamondIndex = [
     [0, 1], [1, 0], [5, 2], [2, 1], [5, 5] ,[7,7] , [1,6] , [4,7]
 ]
 let attempts = 0;
+let score = 64 ;
 $(document).ready(function () {
     //set all squares with question marks //
     $("th").html("<img class='img-responsive' src='./images/question.png' />");
@@ -93,13 +94,12 @@ $(document).ready(function () {
             }
             // setting id to square to keep track of square with arrow on next user click 
             $(this).attr('id', 'arrowed');
-
+            score--;
         }
-        let score = 64 - attempts;
+        
         $(".score").html("Current score is : " + score);
         if (!diamondIndex.length) {
-            score++;
-            $(".score").html("Current score is : " + score);
+           
             //Display modal to replay the game
             $("#myModal").css("display", "block");
             $("#modalScore").append(score);
