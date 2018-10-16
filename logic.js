@@ -1,18 +1,25 @@
+//diamond co-ordinates for testing 
 let diamondIndex = [
     [0, 1], [1, 0], [5, 2], [2, 1], [5, 5]
 ]
 let attempts = 0;
 $(document).ready(function () {
+    //set all squares with question marks //
     $("th").html("<img class='img-responsive' src='./images/question.png' />");
 
+
     $("th").click(function () {
-        $("#arrowed").html("") ; 
-        $("#arrowed").attr('id',"");
+        //using Id to keep track of previous square with arrow to clear it on next square click
+        $("#arrowed").html("");
+        $("#arrowed").attr('id', "");
+
+        //rudimentary check to count only if square has not been already tried
         if ($(this).html().length && diamondIndex.length) {
             attempts++;
         }
-
+        //clear the square before inserting arrow or diamond
         $(this).html("");
+
         let row = $(this).closest("tr").index();
         let column = $(this).index();
 
@@ -24,7 +31,6 @@ $(document).ready(function () {
                     diamondIndex.splice(i, 1);
                     findClosest = true;
                     break;
-
                 }
             }
         }
@@ -40,58 +46,67 @@ $(document).ready(function () {
                     closestColumn = diamondIndex[i][1];
                 }
             }
+
             let rowMag = closestRow - row;
             let columnMag = closestColumn - column;
-            let direction ; 
-            if(rowMag == 0) {
-                if(columnMag >0) {
-                     direction = "RIGHT" ; 
-                }else {
-                     direction = "LEFT" ; 
+
+            //variable to hold arrow direction 
+            let direction;
+            if (rowMag == 0) {
+                if (columnMag > 0) {
+                    direction = "RIGHT";
+                } else {
+                    direction = "LEFT";
                 }
-            }else if (columnMag ==0) {
-                    if(rowMag > 0) {
-                         direction = "DOWN" ;      
-                       }else {
-                            direction = "TOP" ; 
-                       }
-            }else {
-                if(Math.abs(rowMag) < Math.abs(columnMag)) {
-                    if(rowMag>0) {
-                         direction = "DOWN" ;
-                    }else {
-                         direction = "TOP" ; 
+            } else if (columnMag == 0) {
+                if (rowMag > 0) {
+                    direction = "DOWN";
+                } else {
+                    direction = "TOP";
+                }
+            } else {
+                if (Math.abs(rowMag) < Math.abs(columnMag)) {
+                    if (rowMag > 0) {
+                        direction = "DOWN";
+                    } else {
+                        direction = "TOP";
                     }
-                }else {
-                    if(columnMag>0) {
-                        direction = "RIGHT" ;
-                   }else {
-                        direction = "LEFT" ; 
-                   }
+                } else {
+                    if (columnMag > 0) {
+                        direction = "RIGHT";
+                    } else {
+                        direction = "LEFT";
+                    }
                 }
             }
-            
+
             $(this).html("<img class='img-responsive' src='./images/arrow.png' />");
-            if(direction === "DOWN") {
-                $(this).css("transform" , "rotate(90deg)");
+            
+            if (direction === "DOWN") {
+                $(this).css("transform", "rotate(90deg)");
             }
-            if(direction === "LEFT") {
-                $(this).css("transform" , "rotate(180deg)");
- 
+            if (direction === "LEFT") {
+                $(this).css("transform", "rotate(180deg)");
             }
-            if(direction === "TOP") {
-                $(this).css("transform" , "rotate(-90deg)");
+            if (direction === "TOP") {
+                $(this).css("transform", "rotate(-90deg)");
             }
-           
-            console.log(direction) ; 
-            console.log(closestRow, closestColumn);
-            $(this).attr('id','arrowed') ; 
+            // setting id to square to keep track of square with arrow on next user click 
+            $(this).attr('id', 'arrowed');
 
         }
+        let score = 64 - attempts;
+        $(".score").html("Current score is : " + score);
         if (!diamondIndex.length) {
-            let score = 64 - attempts;
-            $(".score").html(score);
+
+            //Display modal to replay the game
+            $("#myModal").css("display", "block");
+            $("#modalScore").append(score);
         }
+
+        $("#replay").click(function () {
+            location.reload();
+        })
 
     });
 });
