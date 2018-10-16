@@ -98,7 +98,8 @@ $(document).ready(function () {
         let score = 64 - attempts;
         $(".score").html("Current score is : " + score);
         if (!diamondIndex.length) {
-
+            score++;
+            $(".score").html("Current score is : " + score);
             //Display modal to replay the game
             $("#myModal").css("display", "block");
             $("#modalScore").append(score);
